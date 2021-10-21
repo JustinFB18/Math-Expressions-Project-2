@@ -1,10 +1,10 @@
 package ExpressionTree;
 
-public class Stack<T> {
+public class Stacke<T> {
     private LinkedList stackList;
 
     // Class constructor
-    public Stack() {
+    public Stacke() {
         stackList = new LinkedList();
     }
 
