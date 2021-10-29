@@ -1,4 +1,4 @@
-package sample;
+package GUI_Calculator;
 
 public class Controller {
 }
