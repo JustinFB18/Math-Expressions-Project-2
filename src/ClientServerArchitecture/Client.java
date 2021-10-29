@@ -18,19 +18,35 @@ public class Client {
     private static DataOutputStream outgoingMessage;
     private static Socket client;
     public static boolean state = false;
+    public String answer= "";
 
     /**
      * This is the constructor method of the class.
      */
     public Client() {
+        this.answer =answer;
     }
 
 
-    public static void createClient(int n) throws IOException {
+    public static void createClient() throws IOException {
         client = new Socket(HOST,PORT);
-        System.out.println("Me conecté al servidor, soy"+n);
+        System.out.println("Me conecté al servidor");
         incomingMessage = new DataInputStream(client.getInputStream());
         outgoingMessage = new DataOutputStream(client.getOutputStream());
+    }
+
+    public void waitingAnswer(DataInputStream incomingMessage){
+        new Thread(()-> {
+            try {
+                String answer = incomingMessage.readUTF();
+                System.out.println("answer = " + answer);
+                if  (!answer.equals("")){
+                    this.answer = answer;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
     public void closeConnections() throws IOException {
@@ -39,10 +55,15 @@ public class Client {
         outgoingMessage.close();
     }
 
+    public void sendMessage(String msg) throws IOException {
+        outgoingMessage.writeUTF(msg);
+        waitingAnswer(incomingMessage);
+    }
+
     public static void main(String[] args) throws IOException {
         Client c = new Client();
-        c.createClient(1);
+        c.createClient();
         Client carro = new Client();
-        carro.createClient(2);
+        carro.createClient();
     }
 }

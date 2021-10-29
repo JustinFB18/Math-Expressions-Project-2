@@ -1,4 +1,4 @@
-package sample;
+package GUI_Calculator;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,14 +10,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("GUI_Calculator.fxml"));
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(new Scene(root, 400, 200));
         primaryStage.show();
     }
-
-
-    public static void main(String[] args) {
-        launch(args);
-    }
+    public static void main(String[] args) { launch(args); }
 }

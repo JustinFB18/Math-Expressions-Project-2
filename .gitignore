@@ -56,6 +56,8 @@ cmake-build-*/
 # IntelliJ
 out/
 
+.out
+.idea
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 
@@ -65,6 +67,7 @@ atlassian-ide-plugin.xml
 # Cursive Clojure plugin
 .idea/replstate.xml
 
+src/Math-Expressions-Project-2.iml
 # Crashlytics plugin (for Android Studio and IntelliJ)
 com_crashlytics_export_strings.xml
 crashlytics.properties
@@ -120,7 +123,7 @@ fabric.properties
 # Sensitive or high-churn files
 
 # Gradle
-
+.idea
 # Gradle and Maven with auto-import
 # When using Gradle or Maven with auto-import, you should exclude module files,
 # since they will be recreated, and may cause churn.  Uncomment if using
@@ -134,6 +137,8 @@ fabric.properties
 *.iml
 *.ipr
 
+.vscode/*.json
+.vscode
 # CMake
 
 # Mongo Explorer plugin
@@ -186,5 +191,7 @@ modules.xml
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+.iml
 
 # End of https://www.toptal.com/developers/gitignore/api/java,intellij,intellij+iml
