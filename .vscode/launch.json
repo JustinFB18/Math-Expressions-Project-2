@@ -1,0 +1,51 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "vmArgs": "--module-path C:/Users/jusfb/.jdks/openjdk-16.0.2/lib/JavaFx --add-modules javafx.controls,javafx.fxml",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Launch Client",
+            "request": "launch",
+            "mainClass": "ClientServerArchitecture.Client",
+            "projectName": "Math-Expressions-Project-2_9631e68e"
+        },
+        {
+            "type": "java",
+            "name": "Launch Server",
+            "request": "launch",
+            "mainClass": "ClientServerArchitecture.Server",
+            "projectName": "Math-Expressions-Project-2_9631e68e"
+        },
+        {
+            "type": "java",
+            "name": "Launch InfixToPostFix",
+            "request": "launch",
+            "mainClass": "ExpressionTree.InfixToPostFix",
+            "projectName": "Math-Expressions-Project-2_9631e68e"
+        },
+        {
+            "type": "java",
+            "name": "Launch Tree",
+            "request": "launch",
+            "mainClass": "ExpressionTree.Tree",
+            "projectName": "Math-Expressions-Project-2_9631e68e"
+        },
+        {
+            "type": "java",
+            "name": "Launch Main",
+            "request": "launch",
+            "mainClass": "sample.Main",
+            "projectName": "Math-Expressions-Project-2_9631e68e"
+        }
+    ]
+}
