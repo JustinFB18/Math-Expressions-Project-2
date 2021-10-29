@@ -137,6 +137,8 @@ fabric.properties
 *.iml
 *.ipr
 
+.vscode/*.json
+.vscode
 # CMake
 
 # Mongo Explorer plugin
