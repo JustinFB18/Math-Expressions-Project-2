@@ -79,7 +79,7 @@ public class Server {
     public void sendAnswer(DataOutputStream output, int id,Double answer){
         new Thread(()-> {
             try {
-                output.writeUTF("Answer "+answer);
+                output.writeUTF(""+answer);
             } catch (IOException e) {
                 e.printStackTrace();
             }

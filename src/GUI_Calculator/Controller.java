@@ -18,6 +18,8 @@ public class Controller {
     public Button Result;
     public TextField EnterOperation;
     public TextArea Results;
+    public TextArea myOperations;
+    public Button seeOperations;
 
     public String Operation ="";
     public Client c;
@@ -33,6 +35,11 @@ public class Controller {
         c.sendMessage(Operation);
         System.out.println("c.answer = " + c.answer);
         timer.start();
+    }
+
+    public void showOperations(ActionEvent e){
+        System.out.println("WORKING");
+        myOperations.setText("Funcionando");
     }
 
     Timer timer = new Timer (500, new ActionListener()
