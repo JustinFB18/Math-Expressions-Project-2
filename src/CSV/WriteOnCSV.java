@@ -3,15 +3,17 @@ package CSV;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 
 public class WriteOnCSV {
 
 
     public static void main (String[] args) {
 
-        String Expression = "1+2";
+        String Expression = "1+2+5";
         String Result = "3";
-        String Date = "28/10/21";
+        String Date = String.valueOf(LocalDate.now());
+        Date = Date.substring(2);
         String filepath = "datos.csv";
 
         saveRecord(Expression, Result, Date, filepath);
