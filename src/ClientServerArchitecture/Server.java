@@ -1,5 +1,9 @@
 package ClientServerArchitecture;
 
+import ExpressionTree.InfixToPostFix;
+import ExpressionTree.Tree;
+import ExpressionTree.TreeNode;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -56,8 +60,15 @@ public class Server {
                     input = new DataInputStream(client.getInputStream());
                     String text = input.readUTF();
                     System.out.println(text);
+                    Tree miArbol = new Tree();
+                    InfixToPostFix o = new InfixToPostFix();
+                    o.inFix = text;
+                    String postfix = o.transforming();
+                    String[] postArray = postfix.split(",");
+                    TreeNode root = miArbol.constructTree(postArray);
+                    Double answer = miArbol.evaluateTree(root);
                     output = new DataOutputStream(client.getOutputStream());
-                    sendAnswer(output,id);
+                    sendAnswer(output,id,answer);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -65,10 +76,10 @@ public class Server {
         }).start();
     }
 
-    public void sendAnswer(DataOutputStream output, int id){
+    public void sendAnswer(DataOutputStream output, int id,Double answer){
         new Thread(()-> {
             try {
-                output.writeUTF("Respuesta para usuario "+id);
+                output.writeUTF("Answer "+answer);
             } catch (IOException e) {
                 e.printStackTrace();
             }
