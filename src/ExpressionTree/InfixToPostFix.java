@@ -1,75 +1,96 @@
 package ExpressionTree;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Hashtable;
 import java.util.Stack;
 
 public class InfixToPostFix {
-    private Hashtable<String,Integer> symbolAndPresedence = new Hashtable<>();
-    private Stack operators = new Stack();
-    private String inFix = "";
-    private char[] inFixList = new char[]{};
-    private char[] symbols = new char[]{'0','1','2','3','4','5','6','7','8','9'};
-    private ArrayList<Character> postFix = new ArrayList<Character>();
+    private String Operator = "*/%^+-!=";
+    private Stack SavedOperators = new Stack();
+    public String inFix = "";
+    private String PostFix = "";
+
+    public static int precedence(String c) {
+        switch (c) {
+            case "+":
+            case "-":
+                return 1;
+            case "*":
+            case "/":
+            case "%":
+            case "^":
+                return 2;
+        }
+        return -1;
+    }
 
     public InfixToPostFix(){
-        this.symbolAndPresedence = symbolAndPresedence;
-        this.operators = operators;
+        this.Operator = Operator;
+        this.SavedOperators = SavedOperators;
         this.inFix = inFix;
-        this.symbols = symbols;
-        this.inFixList = inFix.toCharArray();
-        this.postFix = postFix;
+        this.PostFix = PostFix;
     }
+    public String transforming(){
+        this.SavedOperators.push("(");
+        for (int j = 0; j < this.inFix.length(); j=j+1) {
+            String character = String.valueOf(this.inFix.charAt(j));
+            System.out.println("character = " + character);
 
-    public void Presedence(){
-        this.symbolAndPresedence.put("*",3);
-        this.symbolAndPresedence.put("/",3);
-        this.symbolAndPresedence.put("+",2);
-        this.symbolAndPresedence.put("-",2);
-        this.symbolAndPresedence.put("(",1);
-    }
+            if (character.equals("(")){
+                this.SavedOperators.push(character);
+            }else if (!this.Operator.contains(character) && !character.endsWith(")")){
+                this.PostFix += character;
+            }
 
-    public ArrayList<Character> transforming(){
-        Presedence();
-        for (char value: this.inFixList){
-            boolean state = false;
-            for (int i = 0; i < this.symbols.length; i++) {
-                state = this.symbols[i] == value;
-                if (state){
-                    break;
+            if (this.Operator.contains(character)){
+                if (this.SavedOperators.empty()){
+                    this.SavedOperators.push(character);
+                }else {
+                    String Aux = (String) this.SavedOperators.peek();
+                    int priorityFirst = precedence(character);
+                    int prioritySecond = precedence(Aux);
+                    while (priorityFirst < prioritySecond && !Aux.equals("(")) {
+                        String temp = (String) this.SavedOperators.pop();
+                        System.out.println("temp = " + temp);
+                        this.PostFix +=","+ temp;
+                        Aux = (String) this.SavedOperators.peek();
+                        prioritySecond = this.Operator.indexOf(Aux);
+                    }
+                    if (priorityFirst == prioritySecond){
+                        String Aux2 = (String)this.SavedOperators.pop();
+                        if (!Aux2.equals("(")){
+                            this.PostFix += ","+ Aux2;
+                        }
+                    }
+                    this.SavedOperators.push(character);
+                    this.PostFix += ",";
                 }
             }
-            if (state){
-                this.postFix.add(value);
-            } else if(value == '('){
-                this.operators.add(value);
-            } else if(value == ')'){
-                char symbolPeak = (char) this.operators.pop();
-                while(symbolPeak != '('){
-                    this.postFix.add(symbolPeak);
-                    symbolPeak = (char) this.operators.pop();
+
+            if (character.equals(")")){
+                String Aux = (String) this.SavedOperators.peek();
+                while (!Aux.equals("(")){
+                    this.PostFix += ","+(String) this.SavedOperators.pop();
+                    Aux = (String) this.SavedOperators.peek();
                 }
-            } else{
-                while (this.symbols.length != 0 && (this.symbolAndPresedence.get("*") >= this.symbolAndPresedence.get("1"))){
-                    this.postFix.add((Character) this.operators.pop());
-                }
-                this.operators.add(value);
+                this.SavedOperators.pop();
             }
         }
-
-        while(this.operators.size() != 0){
-            System.out.println(this.postFix.get(0));
-            this.postFix.add((Character) this.operators.pop());
+        while (!this.SavedOperators.empty()) {
+            String comprobation = (String) this.SavedOperators.peek();
+            if (!comprobation.equals("(")){
+                this.PostFix += ","+(String) this.SavedOperators.pop();
+            }else{
+                this.SavedOperators.pop();
+            }
         }
-        return this.postFix;
+        System.out.println("La expresión postfija es: "+this.PostFix);
+        return this.PostFix;
     }
 
     public static void main(String[] args) {
         InfixToPostFix o = new InfixToPostFix();
-        o.inFix = "1*2+3*4";
-        o.inFixList = o.inFix.toCharArray();
-        ArrayList<Character> respuesta = o.transforming();
-        System.out.println(respuesta.toString());
+        o.inFix = "(6+2)*(3/2)-(4%2)";
+        o.inFix = "(5*4)+(100-20)";
+        o.transforming();
+        System.out.println("o.PostFix = " + o.PostFix);
     }
 }
