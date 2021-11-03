@@ -1,13 +1,11 @@
 package ExpressionTree;
 
-import javafx.scene.layout.Priority;
-
 import java.util.Stack;
 
 public class InfixToPostFix {
     private String Operator = "*/%^+-!=";
     private Stack SavedOperators = new Stack();
-    private String inFix = "";
+    public String inFix = "";
     private String PostFix = "";
 
     public static int precedence(String c) {
@@ -30,7 +28,7 @@ public class InfixToPostFix {
         this.inFix = inFix;
         this.PostFix = PostFix;
     }
-    public void transforming(){
+    public String transforming(){
         this.SavedOperators.push("(");
         for (int j = 0; j < this.inFix.length(); j=j+1) {
             String character = String.valueOf(this.inFix.charAt(j));
@@ -85,6 +83,7 @@ public class InfixToPostFix {
             }
         }
         System.out.println("La expresión postfija es: "+this.PostFix);
+        return this.PostFix;
     }
 
     public static void main(String[] args) {

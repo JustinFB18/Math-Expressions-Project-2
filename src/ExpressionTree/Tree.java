@@ -60,7 +60,7 @@ public class Tree {
         return leftNumber % rightNumber;
     }
 
-    TreeNode constructTree(String[] postfix){
+    public TreeNode constructTree(String[] postfix){
         Stack<TreeNode> myTree = new Stack<TreeNode>();
         TreeNode left_child, right_child;
         Boolean firstNumber = false;
