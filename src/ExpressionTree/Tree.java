@@ -5,9 +5,6 @@ import java.util.Stack;
 public class Tree {
     public String expression = "";
     public TreeNode root;
-    public double result = 1;
-    public double leftNumber = 0;
-    public double rightNumber = 0;
     public String operator = "";
 
 
@@ -29,17 +26,17 @@ public class Tree {
     }
 
     public double evaluateTree(TreeNode root){
-        if (root == null){
+        if (root.element == null)
             return 0;
-        }
-        if (root.left == null && root.right==null){
+        if (root.left == null && root.right==null)
             return Double.valueOf((String) root.element);
-        }
 
-        leftNumber = evaluateTree(root.left);
-        rightNumber = evaluateTree(root.right);
+
+        Double leftNumber = evaluateTree(root.left);
+        Double rightNumber = evaluateTree(root.right);
         operator = (String) root.element;
 
+        /*
         if (operator.equals("+"))
             return leftNumber + rightNumber;
 
@@ -49,20 +46,18 @@ public class Tree {
         if (operator.equals("*"))
             return leftNumber * rightNumber;
 
-        return leftNumber / rightNumber;
-        /*switch (operator){
+        return leftNumber / rightNumber;*/
+        switch (operator){
             case "+":
-                result = leftNumber + rightNumber; break;
+                return leftNumber + rightNumber;
             case "-":
-                result = leftNumber - rightNumber; break;
+                return leftNumber - rightNumber;
             case "*":
-                result = leftNumber * rightNumber; break;
+                return leftNumber * rightNumber;
             case "/":
-                result = leftNumber / rightNumber; break;
-            case "%":
-                result = leftNumber % rightNumber; break;
+                return leftNumber / rightNumber;
         }
-        return result;*/
+        return leftNumber % rightNumber;
     }
 
     TreeNode constructTree(String[] postfix){
@@ -98,8 +93,8 @@ public class Tree {
 
     public static void main(String[] args) {
         Tree miArbol = new Tree();
-        //String postfix = "6,2,+,3,2,/,*,4,2,%,-";
-        String postfix = "5,4,*,100,20,-,+";
+        String postfix = "6,2,+,3,2,/,*,4,2,%,-";
+        //String postfix = "5,4,*,100,20,-,+";
         String[] postArray = postfix.split(",");
         TreeNode root = miArbol.constructTree(postArray);
         //miArbol.postOrder(root);
