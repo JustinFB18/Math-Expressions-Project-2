@@ -16,15 +16,17 @@ public class WriteOnCSV {
         Date = Date.substring(2);
         String filepath = "datos.csv";
 
-        saveRecord(Expression, Result, Date, filepath);
+        saveRecord(Expression, Result, filepath);
     }
 
-    public static void saveRecord(String Expression,String Result,String Date,String filepath) {
+    public static void saveRecord(String Expression, String Result, String filepath) {
         try{
             FileWriter fw = new FileWriter(filepath, true);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(fw);
 
+            String Date = String.valueOf(LocalDate.now());
+            Date = Date.substring(2);
             pw.println(Expression+","+Result+","+Date);
             pw.flush();
             pw.close();

@@ -19,12 +19,14 @@ public class Client {
     private static Socket client;
     public static boolean state = false;
     public String answer= "";
+    public String history = "";
 
     /**
      * This is the constructor method of the class.
      */
     public Client() {
         this.answer =answer;
+        this.history = history;
     }
 
 
@@ -49,14 +51,28 @@ public class Client {
         }).start();
     }
 
+    public void waitingRequest(DataInputStream incomingMessage){
+        new Thread(()-> {
+            try {
+                String history = incomingMessage.readUTF();
+                System.out.println("history = " + history);
+                if  (!history.equals("")){
+                    this.history = history;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
     public void closeConnections() throws IOException {
         client.close();
         incomingMessage.close();
         outgoingMessage.close();
     }
 
-    public void sendMessage(String msg) throws IOException {
-        outgoingMessage.writeUTF(msg);
+    public void sendMessage(String msg, String username) throws IOException {
+        outgoingMessage.writeUTF(msg+","+username);
         waitingAnswer(incomingMessage);
     }
 
@@ -65,5 +81,10 @@ public class Client {
         c.createClient();
         Client carro = new Client();
         carro.createClient();
+    }
+
+    public void sendRequest(String username) throws IOException {
+        outgoingMessage.writeUTF("request"+username);
+        waitingRequest(incomingMessage);
     }
 }
