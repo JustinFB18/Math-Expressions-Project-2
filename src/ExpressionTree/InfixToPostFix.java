@@ -60,8 +60,10 @@ public class InfixToPostFix {
                             this.PostFix += ","+ Aux2;
                         }
                     }
-                    this.SavedOperators.push(character);
-                    this.PostFix += ",";
+                    if (!character.equals("")){
+                        this.SavedOperators.push(character);
+                        this.PostFix += ",";
+                    }
                 }
             }
 
@@ -90,6 +92,7 @@ public class InfixToPostFix {
         InfixToPostFix o = new InfixToPostFix();
         o.inFix = "(6+2)*(3/2)-(4%2)";
         o.inFix = "(5*4)+(100-20)";
+        o.inFix = "5+";
         o.transforming();
         System.out.println("o.PostFix = " + o.PostFix);
     }

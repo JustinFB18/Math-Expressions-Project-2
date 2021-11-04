@@ -11,13 +11,15 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <Pane prefHeight="350.0" prefWidth="400.0">
+      <Pane prefHeight="430.0" prefWidth="400.0">
          <children>
-            <TextArea fx:id="Results" editable="false" layoutX="151.0" layoutY="134.0" prefHeight="12.0" prefWidth="99.0" />
-            <Button fx:id="Result" layoutX="174.0" layoutY="88.0" mnemonicParsing="false" onAction="#returnResult" text="Result" />
-            <TextField fx:id="EnterOperation" layoutX="35.0" layoutY="29.0" prefHeight="38.0" prefWidth="331.0" promptText="EnterOperation" />
-            <Button fx:id="showOperations" layoutX="141.0" layoutY="186.0" mnemonicParsing="false" onAction="#showOperations" text="See my operations" />
-            <TextArea fx:id="myOperations" editable="false" layoutX="31.0" layoutY="236.0" prefHeight="100.0" prefWidth="331.0" />
+            <TextArea fx:id="Results" editable="false" layoutX="149.0" layoutY="196.0" prefHeight="12.0" prefWidth="99.0" />
+            <Button fx:id="Result" layoutX="174.0" layoutY="142.0" mnemonicParsing="false" onAction="#returnResult" text="Result" />
+            <TextField fx:id="EnterOperation" layoutX="33.0" layoutY="79.0" prefHeight="38.0" prefWidth="331.0" promptText="EnterOperation" />
+            <Button fx:id="showOperations" layoutX="141.0" layoutY="253.0" mnemonicParsing="false" onAction="#showOperations" text="See my operations" />
+            <TextArea fx:id="myOperations" editable="false" layoutX="33.0" layoutY="300.0" prefHeight="100.0" prefWidth="331.0" />
+            <TextField fx:id="userName" layoutX="132.0" layoutY="34.0" promptText="Write your username" />
+            <Label layoutX="62.0" layoutY="34.0" text="Username" />
          </children>
       </Pane>
    </children>

@@ -1,5 +1,6 @@
 package ExpressionTree;
 
+import java.util.EmptyStackException;
 import java.util.Stack;
 
 public class Tree {
@@ -55,7 +56,13 @@ public class Tree {
             case "*":
                 return leftNumber * rightNumber;
             case "/":
+                if (rightNumber == 0){
+                    return 0;
+                }
                 return leftNumber / rightNumber;
+        }
+        if (rightNumber == 0){
+            return 0;
         }
         return leftNumber % rightNumber;
     }
@@ -69,7 +76,14 @@ public class Tree {
         for(int i = 0;i< postfix.length;i++){
             if (operator.contains(postfix[i])) {
                 right_child = myTree.pop();
-                left_child = myTree.pop();
+                try {
+                    left_child = myTree.pop();
+                    if (left_child.element.equals("")){
+                        left_child.element =0;
+                    }
+                }catch (EmptyStackException t){
+                    left_child = new TreeNode(null);
+                }
                 TreeNode root = new TreeNode(postfix[i],left_child,right_child);
                 myTree.push(root);
                 firstNumber = false;
@@ -85,15 +99,16 @@ public class Tree {
             }
         }
         root = myTree.pop();
-        System.out.println(root.element);
-        System.out.println(root.left.element);
-        System.out.println(root.right.element);
+        //System.out.println(root.element);
+        //System.out.println(root.left.element);
+        //System.out.println(root.right.element);
         return root;
     }
 
     public static void main(String[] args) {
         Tree miArbol = new Tree();
         String postfix = "6,2,+,3,2,/,*,4,2,%,-";
+        postfix = "5,0,%";
         //String postfix = "5,4,*,100,20,-,+";
         String[] postArray = postfix.split(",");
         TreeNode root = miArbol.constructTree(postArray);
