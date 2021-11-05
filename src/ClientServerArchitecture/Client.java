@@ -6,7 +6,8 @@ import java.io.IOException;
 import java.net.Socket;
 
 /**
- * The Client Class that allows to connect to a server
+ * The template to create clients that connect with the server in
+ * a specific given port.
  *
  * @author Justin Fern&aacute;ndez y Abraham Venegas
  * @version 1
@@ -29,7 +30,12 @@ public class Client {
         this.history = history;
     }
 
-
+    /**
+     * Open the key components to have a connected client with the server
+     * and be able to send and get messages with the server.
+     * @throws IOException if there is an error creating the socket due to the HOST or PORT
+     *                      or creating the channels for send and get messages.
+     */
     public static void createClient() throws IOException {
         client = new Socket(HOST,PORT);
         System.out.println("Me conecté al servidor");
@@ -37,11 +43,14 @@ public class Client {
         outgoingMessage = new DataOutputStream(client.getOutputStream());
     }
 
+    /**
+     * This method start a thread to wait for a message from the server.
+     * @param incomingMessage the DataInputStream of the client.
+     */
     public void waitingAnswer(DataInputStream incomingMessage){
         new Thread(()-> {
             try {
                 String answer = incomingMessage.readUTF();
-                System.out.println("answer = " + answer);
                 if  (!answer.equals("")){
                     this.answer = answer;
                 }
@@ -51,11 +60,14 @@ public class Client {
         }).start();
     }
 
+    /**
+     * This method start a thread to wait for a message with the history of a user from the server.
+     * @param incomingMessage the DataInputStream of the client.
+     */
     public void waitingRequest(DataInputStream incomingMessage){
         new Thread(()-> {
             try {
                 String history = incomingMessage.readUTF();
-                System.out.println("history = " + history);
                 if  (!history.equals("")){
                     this.history = history;
                 }
@@ -65,24 +77,35 @@ public class Client {
         }).start();
     }
 
+    /**
+     * It kills or closes the channels that allow to the client
+     * communicate with other users through the server.
+     * @throws IOException if there is an error closing the client or
+     *                     channel to send message, such as try to close them
+     *                     when they are closed.
+     */
     public void closeConnections() throws IOException {
         client.close();
         incomingMessage.close();
         outgoingMessage.close();
     }
 
+    /**
+     * This method sends a message to wait for a result of some expression.
+     *
+     * @throws IOException if there is an error sending the message.
+     */
     public void sendMessage(String msg, String username) throws IOException {
         outgoingMessage.writeUTF(msg+","+username);
         waitingAnswer(incomingMessage);
     }
 
-    public static void main(String[] args) throws IOException {
-        Client c = new Client();
-        c.createClient();
-        Client carro = new Client();
-        carro.createClient();
-    }
 
+    /**
+     * This method sends a message to wait for the history with all sent expressions by the user.
+     *
+     * @throws IOException if there is an error sending the message.
+     */
     public void sendRequest(String username) throws IOException {
         outgoingMessage.writeUTF("request"+username);
         waitingRequest(incomingMessage);

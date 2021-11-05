@@ -4,30 +4,6 @@ import java.io.*;
 
 public class csvReaderPrinter {
 
-    public void csvReader() throws IOException {
-        String file = "datos.csv";
-        BufferedReader reader = null;
-        String line = "";
-
-        try{
-            reader = new BufferedReader(new FileReader(file));
-            while((line = reader.readLine()) != null) {
-                String[] row = line.split(",");
-
-                for (String index : row){
-                    System.out.printf("%10s", index);
-                }
-                System.out.println();
-            }
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
-        finally{
-            reader.close();
-        }
-    }
-
     public String historyUser(String username) {
         String filepath = username+".csv";
         BufferedReader reader = null;
@@ -42,7 +18,6 @@ public class csvReaderPrinter {
                 for (String index : row){
                     tempOperations += index+",";
                 }
-                //System.out.println(tempOperations);
                 String[] temp = tempOperations.split(",");
                 operations += "Your expression: "+temp[0]+"  Result: "+ temp[1]+" Date: "+temp[2]+"\n";
                 tempOperations = "";
@@ -62,11 +37,5 @@ public class csvReaderPrinter {
             e.printStackTrace();
         }
         return "There aren't expressions.";
-    }
-
-    public static void main(String[] args) throws IOException {
-        csvReaderPrinter m = new csvReaderPrinter();
-        //m.csvReader();
-        m.historyUser("datos");
     }
 }

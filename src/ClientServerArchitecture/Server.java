@@ -25,15 +25,28 @@ public class Server {
     private DataOutputStream output;
     private DataInputStream input;
 
+    /**
+     * Creates the Server.
+     *
+     * @throws IOException if something wrong happens opening the server in that port.
+     */
     public void createServer() throws IOException {
         serverSystem = new ServerSocket(PORT);
         System.out.println("Servidor abierto");
     }
 
+    /**
+     * Closes or kills the created server system.
+     * @throws IOException if the server is impossible to close.
+     */
     public void kill() throws IOException {
         serverSystem.close();
     }
 
+    /**
+     * This method opens a Thread to wait for clients that connect with the server.
+     * @throws IOException if the waiting client collapses.
+     */
     public void waitingClientThread(){
         new Thread(()-> {
             try {
@@ -45,6 +58,13 @@ public class Server {
         }).start();
     }
 
+
+
+    /**
+     * Waits for clients that connect to the server.
+     * @throws IOException if the server can't accept the client connection or something happens wrong with
+     * receive messages thread.
+     */
     public Socket waitingClient() throws IOException{
         while (true) {
             Socket client = serverSystem.accept();
@@ -53,6 +73,12 @@ public class Server {
         }
     }
 
+    /**
+     * Receives information for the client, it could be a request of the history of expressions or the result
+     * of one expression.
+     *
+     * @param client receives a socket with the client to receive messages of them.
+     */
     public void receiveMessages(Socket client){
         new Thread(()-> {
             try {
@@ -85,6 +111,13 @@ public class Server {
         }).start();
     }
 
+    /**
+     * Analyze the csv with the information that was requested.
+     *
+     * @param output the DataOutputStream to a specific client.
+     * @param username the username that request the history.
+     * @throws IOException if the thread of sendAnswer fails.
+     */
     private void requestingInfo(DataOutputStream output, String username) throws IOException {
         csvReaderPrinter m = new csvReaderPrinter();
         String historial = m.historyUser(username);
@@ -92,6 +125,14 @@ public class Server {
     }
 
 
+    /**
+     * Sends the answer to the client according to its request.
+     *
+     * @param output the DataOutputStream to a specific client.
+     * @param username the username that request the history.
+     * @param answer the result of the expression to calculate or 0.0 if is a request of history.
+     * @param expression the expression which was evaluated or the history.
+     */
     public void sendAnswer(DataOutputStream output, String username,Double answer,String expression){
         new Thread(()-> {
             try {
@@ -109,10 +150,22 @@ public class Server {
     }
 
 
+    /**
+     * Registering the expression and its result to the according csv file of the user.
+     *
+     * @param expression the expression which was evaluated or the history.
+     * @param Result the result of the expression to calculate.
+     * @param filepath the name of the username to concat with the .csv path.
+     */
     public void registerInfo(String expression, String Result, String filepath){
         WriteOnCSV writer = new WriteOnCSV();
         writer.saveRecord(expression,Result,filepath);
     }
+
+    /**
+     * Main method of the Server Class that start running when the program is executed.
+     * @param args stores the incomding command line arguments for the program
+     */
     public static void main(String[] args) {
         Server myServer = new Server();
         try{

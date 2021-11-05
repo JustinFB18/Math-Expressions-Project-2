@@ -11,8 +11,13 @@ import javafx.scene.control.TextField;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.Random;
 
+/**
+ * Control the functions and the interactivity between the user and the app.
+ *
+ * @author Justin Fern&aacute;ndez y Abraham Venegas
+ * @version 1
+ */
 public class Controller {
     public int port = 8080;
     @FXML
@@ -26,11 +31,24 @@ public class Controller {
     public String Operation ="";
     public Client c;
 
+    /**
+     * This method occurs when the window is opened and connects the client with a server.
+     *
+     * @throws IOException if it is not possible to connect with the server.
+     */
     @FXML
     public void initialize() throws IOException {
         c = new Client();
         c.createClient();
     }
+
+    /**
+     * When the button with the text: "Result" is clicked this event occurs and sends the information
+     * to the server.
+     *
+     * @param e Receives a event of action connected to the button of result
+     * @throws IOException if something wrong happens asking the result or if is not username.
+     */
     public void returnResult(ActionEvent e) throws IOException, InterruptedException {
         if (userName.getText().equals("")){
             Alert a = new Alert(Alert.AlertType.NONE);
@@ -42,13 +60,18 @@ public class Controller {
             a.show();
         }else{
             Operation = EnterOperation.getText();
-            System.out.println("Operation = " + Operation);
             c.sendMessage(Operation,userName.getText());
-            System.out.println("c.answer = " + c.answer);
             timer.start();
         }
     }
 
+    /**
+     * When the button with the text: "See my Operations" is clicked this event occurs and requests the
+     * all the expression that the client has sent to the server.
+     *
+     * @param e Receives a event of action connected to the button of See my Operations.
+     * @throws IOException if something wrong happens asking the history or if is not username.
+     */
     public void showOperations(ActionEvent e) throws IOException {
         if(userName.getText().equals("")){
             Alert a = new Alert(Alert.AlertType.NONE);
@@ -64,6 +87,7 @@ public class Controller {
         }
     }
 
+    // It's a timer to update the GUI with the result of the input expression.
     Timer timer = new Timer (500, new ActionListener()
     {
         @Override
@@ -75,6 +99,7 @@ public class Controller {
         }
     });
 
+    // It's a timer to update the GUI with all expressions to a specific client according to their username.
     Timer timerHistory = new Timer (500, new ActionListener()
     {
         @Override

@@ -1,13 +1,26 @@
 package ExpressionTree;
 
+import java.io.IOException;
 import java.util.Stack;
 
+
+/**
+ * This Class transform the expression that client write in infix to postfix form.
+ *
+ * @author Justin Fern&aacute;ndez y Abraham Venegas
+ * @version 1
+ */
 public class InfixToPostFix {
     private String Operator = "*/%^+-!=";
     private Stack SavedOperators = new Stack();
     public String inFix = "";
     private String PostFix = "";
 
+    /**
+     * Return the important precedence of a operator.
+     *
+     * @param c Receives a character.
+     */
     public static int precedence(String c) {
         switch (c) {
             case "+":
@@ -22,12 +35,21 @@ public class InfixToPostFix {
         return -1;
     }
 
+    /**
+     * Constructor method that initialize the operator, the Stack with the operators of the expression and
+     * the infix and postfix strings.
+     */
     public InfixToPostFix(){
         this.Operator = Operator;
         this.SavedOperators = SavedOperators;
         this.inFix = inFix;
         this.PostFix = PostFix;
     }
+
+    /**
+     * This function saved the operators in a stack and according to three basic mathematic rules transform
+     * the string in the infix to postfix form.
+     */
     public String transforming(){
         this.SavedOperators.push("(");
         for (int j = 0; j < this.inFix.length(); j=j+1) {
@@ -84,14 +106,5 @@ public class InfixToPostFix {
             }
         }
         return this.PostFix;
-    }
-
-    public static void main(String[] args) {
-        InfixToPostFix o = new InfixToPostFix();
-        o.inFix = "(6+2)*(3/2)-(4%2)";
-        o.inFix = "(5*4)+(100-20)";
-        o.inFix = "5+";
-        o.transforming();
-        System.out.println("o.PostFix = " + o.PostFix);
     }
 }

@@ -1,31 +1,36 @@
 package ExpressionTree;
 
+import java.io.IOException;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
+
+/**
+ * Binary Expression Tree Class that construct a tree according to a postfix expression and
+ * evaluate a tree.
+ *
+ * @author Justin Fern&aacute;ndez y Abraham Venegas
+ * @version 1
+ */
 public class Tree {
     public String expression = "";
     public TreeNode root;
     public String operator = "";
 
 
+    /**
+     * Constructor method that initialize the root of the tree.
+     */
     public Tree() {
         this.root = null;
     }
 
 
-    void postOrder(TreeNode node){
-        if (node == null){
-            return;
-        }
-        else{
-            postOrder(node.left);
-            postOrder(node.right);
-            //System.out.println(expression += node.element);
-            System.out.println(node.element);
-        }
-    }
-
+    /**
+     * Evaluate the tree in a recursive way, first the left element, after the right element and finally its root.
+     *
+     * @param root Receives the element in the peek of the tree.
+     */
     public double evaluateTree(TreeNode root){
         if (root.element == null)
             return 0;
@@ -37,17 +42,6 @@ public class Tree {
         Double rightNumber = evaluateTree(root.right);
         operator = (String) root.element;
 
-        /*
-        if (operator.equals("+"))
-            return leftNumber + rightNumber;
-
-        if (operator.equals("-"))
-            return leftNumber - rightNumber;
-
-        if (operator.equals("*"))
-            return leftNumber * rightNumber;
-
-        return leftNumber / rightNumber;*/
         switch (operator){
             case "+":
                 return leftNumber + rightNumber;
@@ -67,6 +61,11 @@ public class Tree {
         return leftNumber % rightNumber;
     }
 
+    /**
+     * It constructs the Binary Expression Tree according to the postfix array that receives.
+     *
+     * @param postfix Receives a Array of the postfix expression, in each position it has a element.
+     */
     public TreeNode constructTree(String[] postfix){
         Stack<TreeNode> myTree = new Stack<TreeNode>();
         TreeNode left_child, right_child;
@@ -99,20 +98,6 @@ public class Tree {
             }
         }
         root = myTree.pop();
-        //System.out.println(root.element);
-        //System.out.println(root.left.element);
-        //System.out.println(root.right.element);
         return root;
-    }
-
-    public static void main(String[] args) {
-        Tree miArbol = new Tree();
-        String postfix = "6,2,+,3,2,/,*,4,2,%,-";
-        postfix = "5,0,%";
-        //String postfix = "5,4,*,100,20,-,+";
-        String[] postArray = postfix.split(",");
-        TreeNode root = miArbol.constructTree(postArray);
-        //miArbol.postOrder(root);
-        System.out.println("El resultado es: "+ miArbol.evaluateTree(root));
     }
 }

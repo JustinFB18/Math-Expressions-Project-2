@@ -7,18 +7,6 @@ import java.time.LocalDate;
 
 public class WriteOnCSV {
 
-
-    public static void main (String[] args) {
-
-        String Expression = "1+2+5";
-        String Result = "3";
-        String Date = String.valueOf(LocalDate.now());
-        Date = Date.substring(2);
-        String filepath = "datos.csv";
-
-        saveRecord(Expression, Result, filepath);
-    }
-
     public static void saveRecord(String Expression, String Result, String filepath) {
         try{
             FileWriter fw = new FileWriter(filepath, true);
