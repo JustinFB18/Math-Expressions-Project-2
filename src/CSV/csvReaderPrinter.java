@@ -57,11 +57,11 @@ public class csvReaderPrinter {
             }
             return operations;
         } catch (FileNotFoundException f){
-            return "No tiene historial";
+            return "There aren't expressions.";
         } catch(Exception e){
             e.printStackTrace();
         }
-        return "No hay historial";
+        return "There aren't expressions.";
     }
 
     public static void main(String[] args) throws IOException {

@@ -32,7 +32,6 @@ public class InfixToPostFix {
         this.SavedOperators.push("(");
         for (int j = 0; j < this.inFix.length(); j=j+1) {
             String character = String.valueOf(this.inFix.charAt(j));
-            System.out.println("character = " + character);
 
             if (character.equals("(")){
                 this.SavedOperators.push(character);
@@ -84,7 +83,6 @@ public class InfixToPostFix {
                 this.SavedOperators.pop();
             }
         }
-        System.out.println("La expresión postfija es: "+this.PostFix);
         return this.PostFix;
     }
 
