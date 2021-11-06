@@ -39,7 +39,7 @@ public class Controller {
     @FXML
     public void initialize() throws IOException {
         c = new Client();
-        c.createClient();
+        c.createClient();  // creates the new client
     }
 
     /**
@@ -94,7 +94,7 @@ public class Controller {
         public void actionPerformed(java.awt.event.ActionEvent e) {
             Results.setText(c.answer);
             if (!c.answer.equals("")){
-                timer.stop();
+                timer.stop(); 
             }
         }
     });
@@ -106,7 +106,7 @@ public class Controller {
         public void actionPerformed(java.awt.event.ActionEvent e) {
             myOperations.setText(c.history);
             if (!c.history.equals("")){
-                timerHistory.stop();
+                timerHistory.stop(); // it stops when it's done with reading the csv document
             }
         }
     });
