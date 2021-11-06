@@ -6,27 +6,27 @@ import java.io.PrintWriter;
 import java.time.LocalDate;
 
 /**
-     * Clase encargada de escribir los datos en el documento csv de cada usuario
+     *  Class in charge ow writing on the csv document of each user
      */
 
 public class WriteOnCSV {
 
-    // la función permite guardar los tres datos que se nos solicita: expresión, resultado y fecha
+    // the function allows to save the data required: expression, result and date
     public static void saveRecord(String Expression, String Result, String filepath) {
         try{
             FileWriter fw = new FileWriter(filepath, true);
             BufferedWriter bw = new BufferedWriter(fw);
-            PrintWriter pw = new PrintWriter(fw);  // parámetros que nos permiten escribir en el archivo
+            PrintWriter pw = new PrintWriter(fw);  // parameters required to write on the document
 
-            String Date = String.valueOf(LocalDate.now()); // escribe la fecha del día en que se haga la operación
-            Date = Date.substring(2);  // corta la fecha para que no aparezca lahora
-            pw.println(Expression+","+Result+","+Date);  // aquí escribe los tres datos necesarios
+            String Date = String.valueOf(LocalDate.now()); // writes today's date
+            Date = Date.substring(2);  // cuts the date so the hours don't appear
+            pw.println(Expression+","+Result+","+Date);  // it writes the data on the csv document
             pw.flush();
             pw.close();
 
         }
         catch(Exception E){
-            System.out.println("Error writing on file");  // en caso de haber un error nos da un aviso
+            System.out.println("Error writing on file");  // if there's any issue it shows and advertising
         }
 
     }
