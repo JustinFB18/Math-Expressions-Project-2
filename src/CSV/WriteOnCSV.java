@@ -26,7 +26,7 @@ public class WriteOnCSV {
 
         }
         catch(Exception E){
-            System.out.println("Error writing on file");  // if there's any issue it shows and advertising
+            System.out.println("Error writing on file");  // if there's any issue it shows a warning
         }
 
     }
