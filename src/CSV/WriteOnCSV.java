@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import java.time.LocalDate;
 
 /**
-     *  Class in charge ow writing on the csv document of each user
+     *  Class in charge of writing on the csv document of each user
      */
 
 public class WriteOnCSV {
